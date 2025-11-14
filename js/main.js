@@ -1,6 +1,11 @@
 // === main.js ===
 
 document.addEventListener('DOMContentLoaded', init);
+// === SOUND EFFECT ===
+const popSound = new Audio("assets/popsound.mp3");
+//
+popSound.volume = 0.6; 
+
 
 function init() {
   boardArea = document.getElementById('boardArea');
@@ -47,6 +52,9 @@ function onColumnClick(col) {
   slot.innerHTML = '';
   slot.appendChild(disc);
   setTimeout(() => disc.classList.add('show'), 10);
+  popSound.currentTime = 0; //this playf the pop sound
+  popSound.play();
+
 
   if (checkWinAt(row, c, currentPlayer)) {
     gameOver = true;
