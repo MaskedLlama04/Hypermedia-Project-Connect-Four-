@@ -3,9 +3,9 @@
 document.addEventListener('DOMContentLoaded', init);
 // === SOUND EFFECT ===
 const popSound = new Audio("assets/popsound.mp3");
-//
 popSound.volume = 0.6; 
-
+const victorySound = new Audio("assets/victory.mp3");
+victorySound.volume = 0.8;
 
 function init() {
   boardArea = document.getElementById('boardArea');
@@ -61,6 +61,9 @@ function onColumnClick(col) {
     players[currentPlayer].score++;
     updateScoresUI();
     highlightWinningFour(row, c, currentPlayer);
+    // this is basicaly to let the players know the round is over too
+    victorySound.currentTime = 0;
+    victorySound.play();
     return updateMessage(`${players[currentPlayer].name} wins! 🎉`);
   }
 
