@@ -6,8 +6,8 @@ const COLS = 7;
 let board = [];
 let currentPlayer = 1;
 let players = {
-  1: { name: 'Alice', color: '#ff3d00', score: 0 },
-  2: { name: 'Bob', color: '#ffd600', score: 0 }
+  1: { name: 'Player1', color: '#ff3d00', score: 0 },
+  2: { name: 'Player2', color: '#ffd600', score: 0 }
 };
 let gameOver = false;
 let moveHistory = [];
