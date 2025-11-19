@@ -189,7 +189,7 @@ input[type="color"] {
 footer.small {
   font-size: 12px;
   color: #666;
-  margin-top: 10px;
+  margin-top: 4px;
 }
 
 @media (max-width: 900px) {
@@ -372,7 +372,114 @@ footer.small {
     border-radius: 8px;
   }
   
-  /* setup form */
+
+
+/* ---  Main Menu Buttons --- */
+
+.main-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.main-buttons button {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.3);
+}
+
+/* Left button - yellow/orange gradient */
+.btn-left {
+  background: linear-gradient(135deg, #f6d365, #fda085);
+  box-shadow: 0 4px 10px rgba(253,160,133,0.4);
+}
+.btn-left:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(253,160,133,0.55);
+}
+
+/* Center button - large blue gradient (main call to action) */
+.btn-center {
+  flex: 1.4; /* bigger than the others */
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  box-shadow: 0 4px 12px rgba(79,172,254,0.4);
+  font-size: 17px;
+  padding: 14px 18px;
+}
+.btn-center:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(79,172,254,0.55);
+}
+
+/* Right button - red gradient for reset */
+.btn-right {
+  background: linear-gradient(135deg, #ff6b6b, #ff4757);
+  box-shadow: 0 4px 10px rgba(255,107,107,0.4);
+}
+.btn-right:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(255,107,107,0.55);
+}
+
+/* Mobile improvements */
+@media (max-width: 600px) {
+  .main-buttons {
+    flex-direction: column;
+  }
+  
+  .btn-center {
+    flex: none;
+    width: 100%;
+  }
+}
+
+/* =====================================================
+   Stylish Undo Button
+   ===================================================== */
+
+.undo-btn {
+  background: linear-gradient(135deg, #9b5cff, #7f39fb);
+  color: white;
+  font-weight: 700;
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  box-shadow: 0 4px 10px rgba(155, 92, 255, 0.35);
+}
+
+.undo-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(127, 57, 251, 0.55);
+}
+
+.undo-btn:active {
+  transform: translateY(0px);
+  box-shadow: 0 3px 8px rgba(127, 57, 251, 0.35);
+}
+
+/* Mobile-friendly */
+@media (max-width: 600px) {
+  .undo-btn {
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+    padding: 12px;
+  }
+}
+
+
+
   .setup {
     display: flex;
     flex-direction: column;
@@ -419,5 +526,192 @@ footer.small {
       width: 8.25vw;
       height: 8.25vw;
     }
+
+    /* =====================================================
+   GameMode Selector
+   ===================================================== */
+
+.divider {
+  margin: 8px 0;
+  border: 0;
+  height: 1px;
+  background: #e0e0e0;
+}
+
+.gamemode-section {
+  margin-top: 6px;
+  padding: 10px;
+  background: #fafafa;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+
+.gamemode-section h3 {
+  margin: 0 0 12px;
+  font-size: 16px;
+}
+
+.gamemode-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.15s ease;
+}
+
+.gamemode-option:hover {
+  background: #f0f0f0;
+}
+
+.gamemode-option input[type="radio"] {
+  accent-color: #4facfe; /* matches your blue gradient */
+}
+
+.gamemode-option span {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* ================================================================
+RESPONSIVE DESIGN (Mobile, Tablet and Desktop, we tried to do it for any kinda screen)
+================================================================ */
+
+/* --- Tablet & Small Desktop (max-width: 1000px) --- */
+@media (max-width: 1000px) {
+  .container {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  .panel {
+    width: 100%;
+  }
+
+  .board {
+    grid-template-columns: repeat(7, minmax(50px, 1fr));
+    gap: 6px;
+    padding: 10px;
+  }
+
+  .cell {
+    width: 9vw;
+    height: 9vw;
+  }
+
+  .slot, .disc {
+    width: 7vw;
+    height: 7vw;
+  }
+
+  .main-buttons {
+    flex-direction: row;
+  }
+}
+
+/* --- Big Phones / Small Tablets (max-width: 700px) --- */
+@media (max-width: 700px) {
+  body {
+    padding: 12px;
+  }
+
+  h1 {
+    font-size: 22px;
+  }
+
+  .heading {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .main-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn-center {
+    font-size: 16px;
+    padding: 12px;
+  }
+
+  .board {
+    grid-template-columns: repeat(7, minmax(40px, 1fr));
+    padding: 8px;
+  }
+
+  .cell {
+    width: 11vw;
+    height: 11vw;
+  }
+
+  .slot, .disc {
+    width: 9vw;
+    height: 9vw;
+  }
+}
+
+/* --- Small Phones (max-width: 480px) --- */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 20px;
+  }
+
+  .setup label {
+    font-size: 12px;
+  }
+
+  input[type="text"] {
+    font-size: 14px;
+  }
+
+  .message {
+    font-size: 14px;
+  }
+
+  .board {
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    padding: 6px;
+  }
+
+  .cell {
+    width: 12vw;
+    height: 12vw;
+  }
+
+  .slot, .disc {
+    width: 10vw;
+    height: 10vw;
+  }
+
+  .btn-center {
+    font-size: 15px;
+    padding: 12px;
+  }
+
+  .btn-left, .btn-right {
+    font-size: 14px;
+  }
+}
+
+/* --- Extremely Small devices (max-width: 360px) --- */
+@media (max-width: 360px) {
+  .cell {
+    width: 13vw;
+    height: 13vw;
+  }
+
+  .slot, .disc {
+    width: 11vw;
+    height: 11vw;
+  }
+
+  .main-buttons button {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
   }
   
