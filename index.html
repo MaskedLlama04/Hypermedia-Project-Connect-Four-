@@ -65,7 +65,7 @@
           Click a column indicator (top) to drop a token. Connect 4 in any direction to win.
         </footer>
         <hr class="divider">
-
+        <!-- Here thewe is the gamemodes section -->
         <div class="gamemode-section">
           <h3>Select GameMode</h3>
 
@@ -74,7 +74,17 @@
             <span>PVP (Player vs Player)</span>
           </label>
 
-          <!-- More gamemodes will be added here -->
+          
+          <label class="gamemode-option">
+            <input type="radio" name="gamemode" value="pvai">
+            <span>PvAI (Best Move AI)</span>
+          </label>
+
+          <label class="gamemode-option">
+            <input type="radio" name="gamemode" value="random">
+            <span>Random Chaos Mode</span>
+          </label>
+
         </div>
 
       </div>
@@ -97,5 +107,7 @@
   <script src="js/ui.js"></script>
   <script src="js/board.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/ai.js"></script>
+  <script src ="js/random.js"></script>
 </body>
 </html>
