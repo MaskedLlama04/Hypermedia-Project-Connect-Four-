@@ -6,6 +6,8 @@ const popSound = new Audio("assets/popsound.mp3");
 popSound.volume = 0.6; 
 const victorySound = new Audio("assets/victory.mp3");
 victorySound.volume = 0.8;
+const blockSound = new Audio("assets/block.mp3");
+blockSound.volume = 0.7;
 
 function getSelectedGameMode() {
   return document.querySelector("input[name='gamemode']:checked").value;
