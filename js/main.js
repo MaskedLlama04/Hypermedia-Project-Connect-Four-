@@ -7,6 +7,10 @@ popSound.volume = 0.6;
 const victorySound = new Audio("assets/victory.mp3");
 victorySound.volume = 0.8;
 
+function getSelectedGameMode() {
+  return document.querySelector("input[name='gamemode']:checked").value;
+}
+
 function init() {
   boardArea = document.getElementById('boardArea');
   messageEl = document.getElementById('message');
@@ -74,6 +78,16 @@ function onColumnClick(col) {
 
   currentPlayer = currentPlayer === 1 ? 2 : 1;
   updateMessage(`${players[currentPlayer].name}'s turn`);
+  // If it's PvAI and it's AI's turn → AI plays
+  if (getSelectedGameMode() === "pvai" && currentPlayer === 2) {
+      setTimeout(aiMove, 350);   // here we put some delay because if not it would look really fast
+  }
+  // RANDOM MODE extra auto-fill
+  if (getSelectedGameMode() === "random") {
+      setTimeout(randomModeStep, 300); // also some delay so it looks better
+  }
+
+
 }
 
 function newRound() {
