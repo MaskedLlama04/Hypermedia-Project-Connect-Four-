@@ -16,12 +16,15 @@ connect4/
 ├── assets/             # Media files (sound effects)
 │   ├── popsound.mp3
 │   └── victory.mp3
+|   └── block.mp3
 │
 └── js/                 # Separated JavaScript modules
     ├── main.js         # Initialization + event handling
     ├── board.js        # Game logic & state management
     ├── ui.js           # Rendering, animations, UI updates
     └── utils.js        # Helper functions
+    └── ai.js           # The AI game mode management
+    └── random.js       # Random Chaos game mode handler
 ```
 
 The entire project has been modularized so each component has a clear responsibility, making it easier to read and extend.
@@ -45,9 +48,17 @@ The "Undo last" button was transformed into a visually striking element using a 
 A new **“Select GameMode”** section was added below the left information panel.
 This currently includes:
 
-* **PVP (Player vs Player)** — pre-selected by default.
+* **PVP (Player vs Player)** — pre-selected by default. The classic gameplay mode. Two human players alternate turns, competing to connect four discs in any direction.
 
-This creates a foundation to easily add more gamemodes later (PvAI, Hard AI, Timed, etc.).
+* **PvAI (Player vs AI)** - a new gamemode where the player competes against a smart AI opponent.
+The AI uses:
+Minimax-inspired evaluation (we saw the algorythm on the "IA" course of the university and tried to replicate it here). For that we had to do things like column scanning.
+threat detection, weighted scoring for 2-in-a-row and 3-in-a-row patterns (basically playing with "rewards"), make sure the blockers stop the AI from counting sequences
+The AI always plays valid moves and attempts to block or create strong formations.
+
+* **Random Chaos (Player vs Player w/Random)** - A unique mode where after each player complete their turns, the board automatically adds a new disc called blocker.
+The blockers will appear only in valid and reachable board positions (drop from the top like normal discs). They are easy to find because they are visually distinct (rainbow gradient animated disc). They do not belong to either player and can break win sequences. Of course, they cannot win, be undone, or be controlled by players
+This mode introduces unpredictability and forces players to rethink their strategies as the “board fights back.”
 
 ### ✔️ Responsive Design
 
