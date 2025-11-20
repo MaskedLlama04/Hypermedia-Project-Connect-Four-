@@ -441,6 +441,38 @@ footer.small {
     width: 100%;
   }
 }
+/* =====================================================
+   RAINBOW BLOCKER (Random Mode)
+   ===================================================== */
+
+.cell.blocker {
+  background: conic-gradient(
+    red,
+    orange,
+    yellow,
+    lime,
+    cyan,
+    blue,
+    purple,
+    red
+  );
+  border: 3px solid #222;
+  opacity: 1 !important;
+  box-shadow: none !important;
+  animation: rainbowPulse 1.4s infinite ease-in-out alternate;
+}
+
+.cell.blocker::before,
+.cell.blocker::after {
+  opacity: 1 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+@keyframes rainbowPulse {
+  0% { transform: scale(0.92); }
+  100% { transform: scale(1.05); }
+} 
 
 /* =====================================================
    Stylish Undo Button
@@ -477,9 +509,6 @@ footer.small {
     padding: 12px;
   }
 }
-
-
-
   .setup {
     display: flex;
     flex-direction: column;
@@ -526,6 +555,7 @@ footer.small {
       width: 8.25vw;
       height: 8.25vw;
     }
+  }
 
     /* =====================================================
    GameMode Selector
@@ -711,7 +741,5 @@ RESPONSIVE DESIGN (Mobile, Tablet and Desktop, we tried to do it for any kinda s
     font-size: 14px;
     padding: 10px;
   }
-}
+} 
 
-  }
-  
