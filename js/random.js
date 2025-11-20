@@ -1,31 +1,43 @@
 // ===============================
-// Random Mode Logic
+// Random Mode Logic 
 // ===============================
 
 // Called by main.js after each *player* turn
 function randomModeStep() {
     if (gameOver) return;
 
-    const emptyCells = [];
-
-    // Find all empty board positions
-    for (let r = 0; r < ROWS; r++) {
-        for (let c = 0; c < COLS; c++) {
-            if (board[r][c] === 0) {
-                emptyCells.push({ r, c });
-            }
+    // Collect columns that still have empty space
+    const availableCols = [];
+    for (let c = 0; c < COLS; c++) {
+        if (board[0][c] === 0) {
+            availableCols.push(c);
         }
     }
 
-    if (emptyCells.length === 0) return;
+    if (availableCols.length === 0) return;
 
-    // Pick a random empty cell
-    const index = Math.floor(Math.random() * emptyCells.length);
-    const { r, c } = emptyCells[index];
+    // Pick random valid column
+    const col = availableCols[Math.floor(Math.random() * availableCols.length)];
 
-    // Mark it with a special code (3 = blocker)
-    board[r][c] = 3;
+    // Find lowest empty row in that column
+    let row = -1;
+    for (let r = ROWS - 1; r >= 0; r--) {
+        if (board[r][col] === 0) {
+            row = r;
+            break;
+        }
+    }
 
-    // Update UI
-    renderBoard();  
+    if (row === -1) return;
+
+    // Place blocker
+    board[row][col] = 3;
+
+    // This one plays the blocker sound
+    blockSound.currentTime = 0;  // reset for repeated use
+    blockSound.play();
+
+    // Refresh UI
+    renderBoard();
 }
+
