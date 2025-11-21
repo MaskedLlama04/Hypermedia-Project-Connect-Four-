@@ -2,11 +2,11 @@
 // Random Mode Logic 
 // ===============================
 
-// Called by main.js after each *player* turn
+// Called by main.js after each player turn
 function randomModeStep() {
     if (gameOver) return;
 
-    // Collect columns that still have empty space
+    // This will collect columns that still have empty space
     const availableCols = [];
     for (let c = 0; c < COLS; c++) {
         if (board[0][c] === 0) {
@@ -48,4 +48,13 @@ function randomModeStep() {
     
     // Trigger animation
     setTimeout(() => disc.classList.add('show'), 10);
+
+    // Check if board is now full after placing blocker
+    if (isBoardFull()) {
+        gameOver = true;
+        updateMessage("It's a draw!");
+        setTimeout(() => {
+            alert("It's a draw! The board is completely full.\n\nPlease start a new round to continue playing.");
+        }, 400);
+    }
 }
