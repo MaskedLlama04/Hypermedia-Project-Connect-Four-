@@ -30,14 +30,22 @@ function randomModeStep() {
 
     if (row === -1) return;
 
-    // Place blocker
+    // Place blocker (value 3)
     board[row][col] = 3;
 
-    // This one plays the blocker sound
-    blockSound.currentTime = 0;  // reset for repeated use
+    // Add to move history so we know it's a blocker
+    moveHistory.push({ row, col, player: 3 });
+
+    // Play blocker sound
+    blockSound.currentTime = 0;
     blockSound.play();
 
-    // Refresh UI
-    renderBoard();
+    // Create and animate the blocker disc in the UI
+    const slot = document.getElementById(`slot-${row}-${col}`);
+    const disc = el('div', 'disc blocker');
+    slot.innerHTML = '';
+    slot.appendChild(disc);
+    
+    // Trigger animation
+    setTimeout(() => disc.classList.add('show'), 10);
 }
-
