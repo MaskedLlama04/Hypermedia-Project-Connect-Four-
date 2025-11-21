@@ -3,10 +3,11 @@
 
 This project is a complete implementation of the classic **Connect Four** game using only **HTML, CSS, and JavaScript**, organized into multiple files for clarity and maintainability. The goal of the assignment was to create a fully functioning, visually appealing, responsive web application without using external libraries or frameworks.
 
-The application allows two players to compete locally on the same device, dropping tokens into a 7×6 grid until one achieves four connected discs in any direction (horizontal, vertical, or diagonal). The user interface is fully custom styled, responsive across devices, and includes interactive sound effects.
+The application allows two players to compete locally on the same device, dropping tokens into a 7×6 grid until one achieves four connected discs in any direction (horizontal, vertical, or diagonal). The user interface is fully custom styled, responsive across devices, and includes interactive sound effects. We even would like to mention that we created a GitHub repository to work together: https://github.com/MaskedLlama04/Hypermedia-Project-Connect-Four-
 
 ##  Project Structure
 
+Firstly, we must say that we wanted to do it more "professionally" we could say. So, instead of just putting all the files of the project together, we actually tried to divide it in three parts. The main html and CSS files, then we have a folder for any kind of assets (in this case, the audio files), and then a folder dedicated to the js files that we ended up using. The structure basically ends up like this.
 ```
 connect4/
 │
@@ -27,33 +28,36 @@ connect4/
     └── random.js       # Random Chaos game mode handler
 ```
 
-The entire project has been modularized so each component has a clear responsibility, making it easier to read and extend.
+The entire project has been modularized so each component has a clear responsibility, making it easier to read.
 
 ---
 
-##  User Interface Enhancements
-
-Significant improvements have been made to the UI:
+##  User Interface
 
 ### ✔️ Custom Action Buttons
 
 The “Start / Apply”, “New Round”, and “Reset Scores” buttons were redesigned with modern gradient colors, hover animations, and improved spacing. The **Start Round** button is placed at the center and styled as the main call-to-action.
 
+**IMPORTANT NOTE**: When starting/wanting to play, we always recommend to use the **"Start/Apply"** button. This will confirm both player's name, their selected colour, and most importantly the selected gamemode. By that we mean that if you are mid-game, and want to change the first player's colour to black, and also change from the player vs player mode to the player vs AI, you need to select firstly the new colour, then the gamemode below and finally press this button. A new round will start (keeping the old scores of course) with an empty board and the chosen changes.
+
+**SECOND IMPORTANT NOTE**: Also we must tell that **"New Round"** button keeps all the current settings and only makes the board empty and ready to play again. And the **"Reset Scores"** basically does the same thing, but putting both scores to 0.
+
+**LAST IMPORTANT NOTE WE PROMISE**: For playing, the users will have to click on the "▼" icon on top of each one of the columns. The piece will go to the lowest available position from that chosen column.
+
 ### ✔️ Enhanced Undo Button
 
-The "Undo last" button was transformed into a visually striking element using a purple gradient, glowing effects, and smooth animations to stand out more clearly inside the top control bar.
+The "Undo last" button was transformed into a visual element using a purple gradient, glowing effects, and smooth animations to stand out more clearly inside the top control bar. Its use is basically to go back the previous movement and see what happened.
 
 ### ✔️ GameMode Selector
 
-A new **“Select GameMode”** section was added below the left information panel.
-This currently includes:
+A **“Select GameMode”** section was added below the left information panel.
+We have included three main options:
 
 * **PVP (Player vs Player)** — pre-selected by default. The classic gameplay mode. Two human players alternate turns, competing to connect four discs in any direction.
 
 * **PvAI (Player vs AI)** - a new gamemode where the player competes against a smart AI opponent.
 The AI uses:
-Minimax-inspired evaluation (we saw the algorythm on the "IA" course of the university and tried to replicate it here). For that we had to do things like column scanning.
-threat detection, weighted scoring for 2-in-a-row and 3-in-a-row patterns (basically playing with "rewards"), make sure the blockers stop the AI from counting sequences
+Minimax-inspired evaluation (we saw the algorythm on the "IA" course of the university and tried to replicate it here). Its not the smartest intelligence, but it was a fun thing to try given that both of us work on IA development jobs. For that we had to do things like column scanning, threat detection, weighted scoring for 2-in-a-row and 3-in-a-row patterns (basically playing with "rewards"), and making sure the blockers stop the AI from counting sequences.
 The AI always plays valid moves and attempts to block or create strong formations.
 
 * **Random Chaos (Player vs Player w/Random)** - A unique mode where after each player complete their turns, the board automatically adds a new disc called blocker.
@@ -62,7 +66,7 @@ This mode introduces unpredictability and forces players to rethink their strate
 
 ### ✔️ Responsive Design
 
-The entire interface has been upgraded to work across:
+We have tried to make the entire interface work across:
 
 * Phones
 * Tablets
@@ -70,7 +74,6 @@ The entire interface has been upgraded to work across:
 
 This includes:
 
-* Dynamic resizing of the board using `vw` units
 * Stacked or horizontal layouts depending on screen width
 * Font resizing
 * Full-width buttons on mobile
@@ -80,7 +83,7 @@ This includes:
 
 ##  Sound Effects
 
-Two sound effects have been integrated:
+Three sound effects have been integrated:
 
 ###  Token Placement (“pop” sound)
 
@@ -91,7 +94,11 @@ This provides tactile-like feedback and improves user experience.
 
 When a player connects four tokens and wins the game, a **victory.mp3** sound plays.
 
-Both sounds are loaded from the **assets/** folder and triggered inside the JavaScript logic.
+###  Block Placement (“block” sound)
+
+When playing in the Random Chaos mode, after each player turn a block will appear on the board, the **block.mp3** sound is going to play.
+
+All these sounds are loaded from the **assets/** folder and activaded on the JavaScripts files.
 
 ---
 
@@ -106,8 +113,7 @@ The board is stored as a 2D array (6 rows × 7 columns), with values:
 * `0` → empty
 * `1` → player 1
 * `2` → player 2
-
-###  Move Handling
+* `3` → blocker (for the Random Chaos mode)
 
 A piece always drops to the lowest available cell in the selected column.
 
@@ -128,25 +134,17 @@ The UI updates accordingly.
 
 ###  Tie Handling
 
-If the board fills with no winner, the game declares a draw.
+If the board fills with no winner, the game declares a draw with an alert.
 
 ---
 
 ##  Rendering & UI Updates
 
-All rendering logic resides in **ui.js**:
-
-###  Dynamic Board Rendering
-
-After any change, the board redraws cell-by-cell using DOM elements.
+All rendering logic resides in **ui.js**. After any change, the board redraws cell-by-cell using DOM elements.
 
 ###  Animated Token Placement
 
 Discs animate with a quick scaling effect to appear more dynamic.
-
-###  Win Highlight
-
-The four winning discs are visually emphasized with a special highlighted style.
 
 ###  Scoreboard Updates
 
@@ -184,14 +182,13 @@ The game remains fully playable on smartphones.
 This Connect Four project showcases:
 
 * Clean file separation
-* Strong use of pure JavaScript functions
-* A modern, attractive UI
+* Several JavaScript functions for each part of the game
+* A (attractive?) UI
 * Responsive design
 * Interactive sound effects
 * Expandable game architecture
-* A well-organized and clear codebase
 
-The game is fully functional, visually polished, and ready for future improvements.
+The game is fully functional, visually polished, and ready to play.
 
 ---
 
