@@ -74,7 +74,11 @@ function onColumnClick(col) {
 
   if (isBoardFull()) {
     gameOver = true;
-    return updateMessage("It's a draw!");
+    updateMessage("It's a draw!");
+    setTimeout(() => {
+      alert("It's a draw! The board is completely full.\n\nPlease start a new round to continue playing.");
+    }, 100);
+    return;
   }
 
   currentPlayer = currentPlayer === 1 ? 2 : 1;
@@ -85,7 +89,7 @@ function onColumnClick(col) {
     setTimeout(aiMove, 350);
   }
   
-  // RANDOM MODE: add blocker after each player move
+  // If its Random Mode: add blocker after each player move
   if (getSelectedGameMode() === "random") {
     setTimeout(randomModeStep, 300);
   }
@@ -111,7 +115,7 @@ function undoMove() {
   if (mode === "random") {
     // Undo the last blocker first (if exists)
     if (moveHistory.length > 0 && moveHistory[moveHistory.length - 1].player === 3) {
-      undoLastMove();
+      const blocker = undoLastMove();
     }
   }
   
