@@ -1,7 +1,8 @@
 // === main.js ===
 
 document.addEventListener('DOMContentLoaded', init);
-// === SOUND EFFECT ===
+
+// === SOUND EFFECTS ===
 const popSound = new Audio("assets/popsound.mp3");
 popSound.volume = 0.6; 
 const victorySound = new Audio("assets/victory.mp3");
@@ -58,16 +59,14 @@ function onColumnClick(col) {
   slot.innerHTML = '';
   slot.appendChild(disc);
   setTimeout(() => disc.classList.add('show'), 10);
-  popSound.currentTime = 0; //this playf the pop sound
+  popSound.currentTime = 0;
   popSound.play();
-
 
   if (checkWinAt(row, c, currentPlayer)) {
     gameOver = true;
     players[currentPlayer].score++;
     updateScoresUI();
     highlightWinningFour(row, c, currentPlayer);
-    // this is basicaly to let the players know the round is over too
     victorySound.currentTime = 0;
     victorySound.play();
     return updateMessage(`${players[currentPlayer].name} wins! 🎉`);
@@ -80,16 +79,16 @@ function onColumnClick(col) {
 
   currentPlayer = currentPlayer === 1 ? 2 : 1;
   updateMessage(`${players[currentPlayer].name}'s turn`);
+  
   // If it's PvAI and it's AI's turn → AI plays
   if (getSelectedGameMode() === "pvai" && currentPlayer === 2) {
-      setTimeout(aiMove, 350);   // here we put some delay because if not it would look really fast
+    setTimeout(aiMove, 350);
   }
-  // RANDOM MODE extra auto-fill
+  
+  // RANDOM MODE: add blocker after each player move
   if (getSelectedGameMode() === "random") {
-      setTimeout(randomModeStep, 300); // also some delay so it looks better
+    setTimeout(randomModeStep, 300);
   }
-
-
 }
 
 function newRound() {
@@ -106,8 +105,20 @@ function resetScores() {
 }
 
 function undoMove() {
+  // In Random Chaos mode, we need to undo both the blocker AND the player move
+  const mode = getSelectedGameMode();
+  
+  if (mode === "random") {
+    // Undo the last blocker first (if exists)
+    if (moveHistory.length > 0 && moveHistory[moveHistory.length - 1].player === 3) {
+      undoLastMove();
+    }
+  }
+  
+  // Then undo the player move
   const last = undoLastMove();
   if (!last) return updateMessage('No move to undo.');
+  
   renderBoardUI();
   updateMessage(`${players[currentPlayer].name} to play (after undo).`);
 }
