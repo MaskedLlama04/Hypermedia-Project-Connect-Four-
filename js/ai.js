@@ -1,22 +1,19 @@
-// Main AI move
+// Main AI move logic
 function aiMove() {
     if (gameOver) return;
 
-    const depth = 4; // difficulty
+    const depth = 4; // AI search depth
     let bestScore = -Infinity;
     let bestCol = null;
 
+    // Try every column
     for (let col = 0; col < COLS; col++) {
         const row = findAvailableRow(col);
-        if (row === -1) continue;
+        if (row === -1) continue; // column full
 
-        // simulate
-        board[row][col] = 2;
-
+        board[row][col] = 2; // simulate AI move
         let score = minimax(depth - 1, false, -Infinity, Infinity);
-
-        // undo
-        board[row][col] = 0;
+        board[row][col] = 0; // undo simulation
 
         if (score > bestScore) {
             bestScore = score;
@@ -25,18 +22,19 @@ function aiMove() {
     }
 
     if (bestCol !== null) {
-        onColumnClick(bestCol);
+        onColumnClick(bestCol); // play chosen move
     }
 }
 
 function minimax(depth, isMaximizing, alpha, beta) {
     const result = checkWinnerForAI();
-    if (result !== 0) return result;
+    if (result !== 0) return result; // terminal state
 
     if (depth === 0 || boardFull()) {
-        return evaluateBoardAI();
+        return evaluateBoardAI(); // heuristic evaluation
     }
 
+    // AI turn (maximize score)
     if (isMaximizing) {
         let bestValue = -Infinity;
 
@@ -45,18 +43,19 @@ function minimax(depth, isMaximizing, alpha, beta) {
             if (row === -1) continue;
 
             board[row][col] = 2;
-            let score = minimax(depth - 1, false, alpha, beta);
+            let value = minimax(depth - 1, false, alpha, beta);
             board[row][col] = 0;
 
-            bestValue = Math.max(bestValue, score);
+            bestValue = Math.max(bestValue, value);
             alpha = Math.max(alpha, bestValue);
 
-            if (beta <= alpha) break;
+            if (beta <= alpha) break; // pruning
         }
 
         return bestValue;
 
     } else {
+        // Human turn (minimize AI score)
         let bestValue = Infinity;
 
         for (let col = 0; col < COLS; col++) {
@@ -64,10 +63,10 @@ function minimax(depth, isMaximizing, alpha, beta) {
             if (row === -1) continue;
 
             board[row][col] = 1;
-            let score = minimax(depth - 1, true, alpha, beta);
+            let value = minimax(depth - 1, true, alpha, beta);
             board[row][col] = 0;
 
-            bestValue = Math.min(bestValue, score);
+            bestValue = Math.min(bestValue, value);
             beta = Math.min(beta, bestValue);
 
             if (beta <= alpha) break;
@@ -78,6 +77,7 @@ function minimax(depth, isMaximizing, alpha, beta) {
 }
 
 function checkWinnerForAI() {
+    // Convert winner into a large positive or negative score
     let winner = checkWinnerReturnPlayer();
     if (winner === 2) return 999999;
     if (winner === 1) return -999999;
@@ -85,6 +85,7 @@ function checkWinnerForAI() {
 }
 
 function evaluateBoardAI() {
+    // Basic heuristic: compare AI potential vs player potential
     return countScore(2) - countScore(1);
 }
 
@@ -97,7 +98,7 @@ function boardFull() {
 
 function countScore(player) {
     let score = 0;
-    const directions = [[0,1],[1,0],[1,1],[1,-1]];
+    const directions = [[0,1],[1,0],[1,1],[1,-1]]; // horizontal, vertical, diagonals
 
     for (let r = 0; r < ROWS; r++) {
         for (let c = 0; c < COLS; c++) {
@@ -106,6 +107,7 @@ function countScore(player) {
             for (let [dr, dc] of directions) {
                 let count = 0;
 
+                // Check up to 4 in a row
                 for (let i = 0; i < 4; i++) {
                     const rr = r + dr * i;
                     const cc = c + dc * i;
@@ -113,6 +115,7 @@ function countScore(player) {
                     if (board[rr][cc] === player) count++;
                 }
 
+                // Simple scoring weights
                 if (count === 2) score += 10;
                 if (count === 3) score += 200;
                 if (count === 4) score += 20000;
@@ -123,6 +126,7 @@ function countScore(player) {
 }
 
 function checkWinnerReturnPlayer() {
+    // Checks board for a 4-in-a-row
     for (let r = 0; r < ROWS; r++) {
         for (let c = 0; c < COLS; c++) {
             if (board[r][c] === 0) continue;
@@ -138,6 +142,7 @@ function checkWinnerReturnPlayer() {
 }
 
 function checkDir(r, c, dr, dc, p) {
+    // Verifies 4 consecutive pieces in a direction
     for (let i = 0; i < 4; i++) {
         const rr = r + dr * i;
         const cc = c + dc * i;

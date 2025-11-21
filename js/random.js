@@ -2,24 +2,22 @@
 // Random Mode Logic 
 // ===============================
 
-// Called by main.js after each player turn
+// Called automatically after every player move (Random Chaos mode)
 function randomModeStep() {
     if (gameOver) return;
 
-    // This will collect columns that still have empty space
+    // Find columns that still have space
     const availableCols = [];
     for (let c = 0; c < COLS; c++) {
-        if (board[0][c] === 0) {
-            availableCols.push(c);
-        }
+        if (board[0][c] === 0) availableCols.push(c);
     }
 
     if (availableCols.length === 0) return;
 
-    // Pick random valid column
+    // Choose a random valid column
     const col = availableCols[Math.floor(Math.random() * availableCols.length)];
 
-    // Find lowest empty row in that column
+    // Get the first empty row in that column
     let row = -1;
     for (let r = ROWS - 1; r >= 0; r--) {
         if (board[r][col] === 0) {
@@ -27,29 +25,26 @@ function randomModeStep() {
             break;
         }
     }
-
     if (row === -1) return;
 
-    // Place blocker (value 3)
+    // Place blocker (treated as player 3)
     board[row][col] = 3;
+    moveHistory.push({ row, col, player: 3 }); // log blocker for undo
 
-    // Add to move history so we know it's a blocker
-    moveHistory.push({ row, col, player: 3 });
-
-    // Play blocker sound
+    // Audio feedback
     blockSound.currentTime = 0;
     blockSound.play();
 
-    // Create and animate the blocker disc in the UI
+    // Render blocker disc
     const slot = document.getElementById(`slot-${row}-${col}`);
     const disc = el('div', 'disc blocker');
     slot.innerHTML = '';
     slot.appendChild(disc);
-    
-    // Trigger animation
+
+    // Small delay to trigger CSS animation
     setTimeout(() => disc.classList.add('show'), 10);
 
-    // Check if board is now full after placing blocker
+    // If board becomes full after blocker, it's a draw
     if (isBoardFull()) {
         gameOver = true;
         updateMessage("It's a draw!");
