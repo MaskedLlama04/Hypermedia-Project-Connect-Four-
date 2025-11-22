@@ -1,15 +1,23 @@
+/* This file was made by Bernat and Pol.  */
+
+/* =====================================================
+   COLOR VARIABLES - Easy theme customization
+   ===================================================== */
 :root {
-    --board-bg: #0d47a1;
-    --cell-bg: #1976d2;
-    --slot-bg: #e3f2fd;
-    --panel-bg: #ffffff;
-    --accent: #ffb300;
+    --board-bg: #0d47a1;      /* Dark blue for board background */
+    --cell-bg: #1976d2;       /* Lighter blue for cells */
+    --slot-bg: #e3f2fd;       /* Very light blue for empty slots */
+    --panel-bg: #ffffff;      /* White panels */
+    --accent: #ffb300;        /* Yellow accent color */
   }
   
+  /* =====================================================
+     BODY & MAIN LAYOUT
+     ===================================================== */
   body {
     margin: 0;
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    background: linear-gradient(180deg, #e8f0ff 0%, #ffffff 100%);
+    background: linear-gradient(180deg, #e8f0ff 0%, #ffffff 100%); 
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -18,48 +26,59 @@
     box-sizing: border-box;
   }
   
+  /* Main container - two column layout */
   .container {
     width: 920px;
     max-width: 95vw;
     display: grid;
-    grid-template-columns: 320px 1fr;
+    grid-template-columns: 320px 1fr; /* Left panel fixed, right panel flexible */
     gap: 20px;
     align-items: start;
   }
   
-  /* Left panel */
+  /* =====================================================
+     LEFT PANEL - Settings & Scores
+     ===================================================== */
   .panel {
     background: var(--panel-bg);
     border-radius: 12px;
     padding: 16px;
-    box-shadow: 0 6px 20px rgba(13, 47, 77, 0.08);
+    box-shadow: 0 6px 20px rgba(13, 47, 77, 0.08); /* Soft shadow for depth */
   }
+  
   .heading {
     display: flex;
     align-items: center;
     gap: 12px;
   }
+  
   h1 {
     margin: 0;
     font-size: 20px;
   }
+  
+  /* Score display area */
   .score {
     margin-top: 12px;
     display: flex;
     flex-direction: column;
     gap: 10px;
   }
+  
   .player-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 8px;
   }
+  
   .player-info {
     display: flex;
     align-items: center;
     gap: 10px;
   }
+  
+  /* Small circular color indicator for each player */
   .color-swatch {
     width: 22px;
     height: 22px;
@@ -67,11 +86,14 @@
     border: 2px solid #fff;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   }
+  
   .controls {
     display: flex;
     gap: 8px;
     margin-top: 12px;
   }
+  
+  /* Generic button styles */
   button {
     border: 0;
     padding: 8px 12px;
@@ -79,40 +101,50 @@
     cursor: pointer;
     font-weight: 600;
   }
+  
   .btn-primary {
     background: var(--board-bg);
     color: white;
   }
+  
   .btn-ghost {
     background: transparent;
     border: 1px solid #ddd;
   }
   
-  /* Board area */
+  /* =====================================================
+     BOARD AREA - Right Panel
+     ===================================================== */
   .board-wrap {
     display: flex;
     flex-direction: column;
     gap: 12px;
     align-items: center;
   }
+  
   .top-controls {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
+  
   .message {
     font-weight: 600;
   }
+  
+  /* The actual game board grid */
   .board {
     background: var(--board-bg);
     padding: 12px;
     border-radius: 12px;
     display: grid;
-    grid-template-columns: repeat(7, 72px);
+    grid-template-columns: repeat(7, 72px); /* 7 columns for Connect Four */
     gap: 8px;
     box-sizing: border-box;
   }
+  
+  /* Clickable arrows at the top of each column */
   .col-indicator {
     height: 22px;
     display: flex;
@@ -121,8 +153,10 @@
     color: rgba(255, 255, 255, 0.9);
     font-size: 12px;
     cursor: pointer;
-    user-select: none;
+    user-select: none; /* Prevent text selection when clicking */
   }
+  
+  /* Individual cell on the board */
   .cell {
     width: 72px;
     height: 72px;
@@ -133,149 +167,162 @@
     justify-content: center;
     position: relative;
   }
+  
+  /* The circular slot inside each cell */
   .slot {
     width: 60px;
     height: 60px;
     border-radius: 50%;
     background: var(--slot-bg);
-    box-shadow: inset 0 -6px 14px rgba(0, 0, 0, 0.08);
+    box-shadow: inset 0 -6px 14px rgba(0, 0, 0, 0.08); /* Inner shadow for depth */
     transition: background 200ms ease, transform 200ms ease;
   }
   
+  /* The disc that gets dropped into slots */
   .disc {
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    transform: scale(0);
-    transition: transform 220ms cubic-bezier(.2, .9, .3, 1);
+    transform: scale(0); /* Start invisible */
+    transition: transform 220ms cubic-bezier(.2, .9, .3, 1); /* Bouncy animation */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
+  
+  /* Show the disc with scale animation */
   .disc.show {
     transform: scale(1);
   }
+  
+  /* Highlight winning discs with a glow effect */
   .highlight {
     box-shadow: 0 0 0 6px rgba(255, 235, 59, 0.06) inset, 0 10px 30px rgba(0, 0, 0, 0.18);
   }
+  
+  /* Add outline to board when someone wins */
   .winner {
     outline: 4px solid rgba(255, 235, 59, 0.28);
     border-radius: 8px;
   }
   
-
-
-/* ---  Main Menu Buttons --- */
-
-.main-buttons {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: 16px;
-}
-
-.main-buttons button {
-  flex: 1;
-  padding: 12px 16px;
-  border-radius: 10px;
-  border: none;
-  color: white;
-  font-weight: 700;
-  font-size: 15px;
-  cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-  text-shadow: 0 1px 1px rgba(0,0,0,0.3);
-}
-
-/* Left button - yellow/orange gradient */
-.btn-left {
-  background: linear-gradient(135deg, #f6d365, #fda085);
-  box-shadow: 0 4px 10px rgba(253,160,133,0.4);
-}
-.btn-left:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(253,160,133,0.55);
-}
-
-/* Center button - large blue gradient (main call to action) */
-.btn-center {
-  flex: 1.4; /* bigger than the others */
-  background: linear-gradient(135deg, #4facfe, #00f2fe);
-  box-shadow: 0 4px 12px rgba(79,172,254,0.4);
-  font-size: 17px;
-  padding: 14px 18px;
-}
-.btn-center:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 18px rgba(79,172,254,0.55);
-}
-
-/* Right button - red gradient for reset */
-.btn-right {
-  background: linear-gradient(135deg, #ff6b6b, #ff4757);
-  box-shadow: 0 4px 10px rgba(255,107,107,0.4);
-}
-.btn-right:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(255,107,107,0.55);
-}
-
-/* Mobile improvements */
-@media (max-width: 600px) {
+  /* =====================================================
+     MAIN MENU BUTTONS - Colorful gradient buttons
+     ===================================================== */
   .main-buttons {
-    flex-direction: column;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .main-buttons button {
+    flex: 1;
+    padding: 12px 16px;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.3);
+  }
+
+  /* Left button - yellow/orange gradient (New Round) */
+  .btn-left {
+    background: linear-gradient(135deg, #f6d365, #fda085);
+    box-shadow: 0 4px 10px rgba(253,160,133,0.4);
+  }
+  .btn-left:hover {
+    transform: translateY(-2px); /* Lift up on hover */
+    box-shadow: 0 6px 14px rgba(253,160,133,0.55);
+  }
+
+  /* Center button - blue gradient (Start/Apply) */
+  .btn-center {
+    flex: 1.4;
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    box-shadow: 0 4px 12px rgba(79,172,254,0.4);
+    font-size: 17px;
+    padding: 14px 18px;
+  }
+  .btn-center:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(79,172,254,0.55);
+  }
+
+  /* Right button - red gradient for the Reset Scores */
+  .btn-right {
+    background: linear-gradient(135deg, #ff6b6b, #ff4757);
+    box-shadow: 0 4px 10px rgba(255,107,107,0.4);
+  }
+  .btn-right:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(255,107,107,0.55);
+  }
+
+  /* Mobile: stack buttons vertically */
+  @media (max-width: 600px) {
+    .main-buttons {
+      flex-direction: column;
+    }
+    
+    .btn-center {
+      flex: none;
+      width: 100%;
+    }
+  }
+
+  /* =====================================================
+     UNDO BUTTON - Purple gradient
+     ===================================================== */
+  .undo-btn {
+    background: linear-gradient(135deg, #9b5cff, #7f39fb);
+    color: white;
+    font-weight: 700;
+    padding: 10px 18px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    box-shadow: 0 4px 10px rgba(155, 92, 255, 0.35);
+  }
+
+  .undo-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(127, 57, 251, 0.55);
+  }
+
+  .undo-btn:active {
+    transform: translateY(0px); /* Press down effect */
+    box-shadow: 0 3px 8px rgba(127, 57, 251, 0.35);
+  }
+
+  /* Mobile-friendly undo button */
+  @media (max-width: 600px) {
+    .undo-btn {
+      width: 100%;
+      text-align: center;
+      margin-top: 10px;
+      padding: 12px;
+    }
   }
   
-  .btn-center {
-    flex: none;
-    width: 100%;
-  }
-}
-
-/* =====================================================
-   Stylish Undo Button
-   ===================================================== */
-
-.undo-btn {
-  background: linear-gradient(135deg, #9b5cff, #7f39fb);
-  color: white;
-  font-weight: 700;
-  padding: 10px 18px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
-  box-shadow: 0 4px 10px rgba(155, 92, 255, 0.35);
-}
-
-.undo-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(127, 57, 251, 0.55);
-}
-
-.undo-btn:active {
-  transform: translateY(0px);
-  box-shadow: 0 3px 8px rgba(127, 57, 251, 0.35);
-}
-
-/* Mobile-friendly */
-@media (max-width: 600px) {
-  .undo-btn {
-    width: 100%;
-    text-align: center;
-    margin-top: 10px;
-    padding: 12px;
-  }
-}
+  /* =====================================================
+     SETUP SECTION - Player inputs
+     ===================================================== */
   .setup {
     display: flex;
     flex-direction: column;
     gap: 10px;
     margin-top: 10px;
   }
+  
   label {
     font-size: 13px;
     color: #333;
   }
+  
   input[type="text"] {
     padding: 8px;
     border-radius: 8px;
@@ -283,6 +330,7 @@
     width: 100%;
     box-sizing: border-box;
   }
+  
   input[type="color"] {
     width: 48px;
     height: 36px;
@@ -290,15 +338,17 @@
     border: 0;
     background: transparent;
   }
+  
   footer.small {
     font-size: 12px;
     color: #666;
     margin-top: 10px;
   }
   
+  /* Basic responsive adjustments for tablets */
   @media (max-width: 900px) {
     .container {
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr; /* Single column on small screens */
     }
     .board {
       grid-template-columns: repeat(7, 10vw);
@@ -315,229 +365,229 @@
   }
 
   /* =====================================================
-  GameMode Selector
-   ===================================================== */
-
-.divider {
-  margin: 8px 0;
-  border: 0;
-  height: 1px;
-  background: #e0e0e0;
-}
-
-.gamemode-section {
-  margin-top: 6px;
-  padding: 10px;
-  background: #fafafa;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-}
-
-.gamemode-section h3 {
-  margin: 0 0 12px;
-  font-size: 16px;
-}
-
-.gamemode-option {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 10px;
-  cursor: pointer;
-  border-radius: 8px;
-  transition: background 0.15s ease;
-}
-
-.gamemode-option:hover {
-  background: #f0f0f0;
-}
-
-.gamemode-option input[type="radio"] {
-  accent-color: #4facfe; 
-}
-
-.gamemode-option span {
-  font-size: 14px;
-  font-weight: 600;
-}
-
-
-/* =====================================================
-   RAINBOW BLOCKER DISC (Random Chaos Mode)
-   ===================================================== */
-
-.disc.blocker {
-  background: linear-gradient(
-    135deg,
-    #ff0000 0%,
-    #ff7f00 12%,
-    #ffff00 25%,
-    #00ff00 37%,
-    #00ffff 50%,
-    #0000ff 62%,
-    #8b00ff 75%,
-    #ff00ff 87%,
-    #ff0000 100%
-  );
-  background-size: 300% 300%;
-  animation: rainbow-shift 2.5s ease infinite;
-  border: 3px solid rgba(255, 255, 255, 0.8);
-  box-shadow: 
-    0 0 20px rgba(255, 255, 255, 0.6),
-    inset 0 0 15px rgba(255, 255, 255, 0.4),
-    0 6px 16px rgba(0, 0, 0, 0.3);
-}
-
-@keyframes rainbow-shift {
-  0% {
-    background-position: 0% 50%;
-    filter: brightness(1) saturate(1.2);
-  }
-  50% {
-    background-position: 100% 50%;
-    filter: brightness(1.15) saturate(1.4);
-  }
-  100% {
-    background-position: 0% 50%;
-    filter: brightness(1) saturate(1.2);
-  }
-}
-
-/* ================================================================
-RESPONSIVE DESIGN (Mobile, Tablet and Desktop, we tried to do it for any kinda screen)
-================================================================ */
-
-/* --- Tablet & Small Desktop (max-width: 1000px) --- */
-@media (max-width: 1000px) {
-  .container {
-    grid-template-columns: 1fr;
-    width: 100%;
+     GAME MODE SELECTOR
+     ===================================================== */
+  .divider {
+    margin: 8px 0;
+    border: 0;
+    height: 1px;
+    background: #e0e0e0;
   }
 
-  .panel {
-    width: 100%;
-  }
-
-  .board {
-    grid-template-columns: repeat(7, minmax(50px, 1fr));
-    gap: 6px;
+  .gamemode-section {
+    margin-top: 6px;
     padding: 10px;
+    background: #fafafa;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
   }
 
-  .cell {
-    width: 9vw;
-    height: 9vw;
-  }
-
-  .slot, .disc {
-    width: 7vw;
-    height: 7vw;
-  }
-
-  .main-buttons {
-    flex-direction: row;
-  }
-}
-
-/* --- Big Phones / Small Tablets (max-width: 700px) --- */
-@media (max-width: 700px) {
-  body {
-    padding: 12px;
-  }
-
-  h1 {
-    font-size: 22px;
-  }
-
-  .heading {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .main-buttons {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .btn-center {
+  .gamemode-section h3 {
+    margin: 0 0 12px;
     font-size: 16px;
-    padding: 12px;
   }
 
-  .board {
-    grid-template-columns: repeat(7, minmax(40px, 1fr));
-    padding: 8px;
+  .gamemode-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.15s ease;
   }
 
-  .cell {
-    width: 11vw;
-    height: 11vw;
+  .gamemode-option:hover {
+    background: #f0f0f0; /* Subtle highlight on hover */
   }
 
-  .slot, .disc {
-    width: 9vw;
-    height: 9vw;
-  }
-}
-
-/* --- Small Phones (max-width: 480px) --- */
-@media (max-width: 480px) {
-  h1 {
-    font-size: 20px;
+  .gamemode-option input[type="radio"] {
+    accent-color: #4facfe; /* Match blue theme */
   }
 
-  .setup label {
-    font-size: 12px;
-  }
-
-  input[type="text"] {
+  .gamemode-option span {
     font-size: 14px;
+    font-weight: 600;
   }
 
-  .message {
-    font-size: 14px;
+  /* =====================================================
+     RAINBOW BLOCKER DISC (Random Chaos Mode)
+     Animated gradient that cycles through rainbow colors
+     ===================================================== */
+  .disc.blocker {
+    background: linear-gradient(
+      135deg,
+      #ff0000 0%,
+      #ff7f00 12%,
+      #ffff00 25%,
+      #00ff00 37%,
+      #00ffff 50%,
+      #0000ff 62%,
+      #8b00ff 75%,
+      #ff00ff 87%,
+      #ff0000 100%
+    );
+    background-size: 300% 300%; /* Large background for animation */
+    animation: rainbow-shift 2.5s ease infinite;
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 
+      0 0 20px rgba(255, 255, 255, 0.6),
+      inset 0 0 15px rgba(255, 255, 255, 0.4),
+      0 6px 16px rgba(0, 0, 0, 0.3);
   }
 
-  .board {
-    grid-template-columns: repeat(7, 1fr);
-    gap: 5px;
-    padding: 6px;
+  /* Animation that moves the gradient and pulses brightness */
+  @keyframes rainbow-shift {
+    0% {
+      background-position: 0% 50%;
+      filter: brightness(1) saturate(1.2);
+    }
+    50% {
+      background-position: 100% 50%;
+      filter: brightness(1.15) saturate(1.4);
+    }
+    100% {
+      background-position: 0% 50%;
+      filter: brightness(1) saturate(1.2);
+    }
   }
 
-  .cell {
-    width: 12vw;
-    height: 12vw;
+  /* ================================================================
+     RESPONSIVE DESIGN (Mobile, Tablet and Desktop)
+     We tried to make it work on any screen size!
+     ================================================================ */
+
+  /* --- Tablet & Small Desktop (max-width: 1000px) --- */
+  @media (max-width: 1000px) {
+    .container {
+      grid-template-columns: 1fr;
+      width: 100%;
+    }
+
+    .panel {
+      width: 100%;
+    }
+
+    .board {
+      grid-template-columns: repeat(7, minmax(50px, 1fr));
+      gap: 6px;
+      padding: 10px;
+    }
+
+    .cell {
+      width: 9vw;
+      height: 9vw;
+    }
+
+    .slot, .disc {
+      width: 7vw;
+      height: 7vw;
+    }
+
+    .main-buttons {
+      flex-direction: row;
+    }
   }
 
-  .slot, .disc {
-    width: 10vw;
-    height: 10vw;
+  /* --- Big Phones / Small Tablets (max-width: 700px) --- */
+  @media (max-width: 700px) {
+    body {
+      padding: 12px;
+    }
+
+    h1 {
+      font-size: 22px;
+    }
+
+    .heading {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .main-buttons {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .btn-center {
+      font-size: 16px;
+      padding: 12px;
+    }
+
+    .board {
+      grid-template-columns: repeat(7, minmax(40px, 1fr));
+      padding: 8px;
+    }
+
+    .cell {
+      width: 11vw;
+      height: 11vw;
+    }
+
+    .slot, .disc {
+      width: 9vw;
+      height: 9vw;
+    }
   }
 
-  .btn-center {
-    font-size: 15px;
-    padding: 12px;
+  /* --- Small Phones (max-width: 480px) --- */
+  @media (max-width: 480px) {
+    h1 {
+      font-size: 20px;
+    }
+
+    .setup label {
+      font-size: 12px;
+    }
+
+    input[type="text"] {
+      font-size: 14px;
+    }
+
+    .message {
+      font-size: 14px;
+    }
+
+    .board {
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+      padding: 6px;
+    }
+
+    .cell {
+      width: 12vw;
+      height: 12vw;
+    }
+
+    .slot, .disc {
+      width: 10vw;
+      height: 10vw;
+    }
+
+    .btn-center {
+      font-size: 15px;
+      padding: 12px;
+    }
+
+    .btn-left, .btn-right {
+      font-size: 14px;
+    }
   }
 
-  .btn-left, .btn-right {
-    font-size: 14px;
-  }
-}
+  /* --- Extremely Small devices (max-width: 360px) --- */
+  @media (max-width: 360px) {
+    .cell {
+      width: 13vw;
+      height: 13vw;
+    }
 
-/* --- Extremely Small devices (max-width: 360px) --- */
-@media (max-width: 360px) {
-  .cell {
-    width: 13vw;
-    height: 13vw;
-  }
+    .slot, .disc {
+      width: 11vw;
+      height: 11vw;
+    }
 
-  .slot, .disc {
-    width: 11vw;
-    height: 11vw;
+    .main-buttons button {
+      font-size: 14px;
+      padding: 10px;
+    }
   }
-
-  .main-buttons button {
-    font-size: 14px;
-    padding: 10px;
-  }
-}
