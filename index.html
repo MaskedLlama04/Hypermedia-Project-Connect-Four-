@@ -8,6 +8,7 @@
 </head>
 <body>
   <div class="container">
+    <!-- Left panel: settings, scores, and game mode selection -->
     <div class="panel">
       <div class="heading">
         <h1>Connect Four</h1>
@@ -15,6 +16,7 @@
       </div>
 
       <div class="setup">
+        <!-- Player 1 configuration -->
         <div style="display:flex;gap:8px;">
           <div style="flex:1">
             <label>Player 1 name</label>
@@ -25,7 +27,7 @@
             <input id="p1Color" type="color" value="#ff3d00" />
           </div>
         </div>
-
+        <!-- Player 2 configuration -->
         <div style="display:flex;gap:8px;">
           <div style="flex:1">
             <label>Player 2 name</label>
@@ -36,14 +38,14 @@
             <input id="p2Color" type="color" value="#ffd600" />
           </div>
         </div>
-
+        <!-- Main action buttons -->
         <div class="main-buttons">
             <button id="newRoundBtn" class="btn-left">New round</button>
             <button id="startBtn" class="btn-center">Start / Apply</button>
             <button id="resetBtn" class="btn-right">Reset scores</button>
         </div>
 
-
+        <!-- Score display for both players -->
         <div class="score">
           <div class="player-row">
             <div class="player-info">
@@ -60,26 +62,29 @@
             <div style="font-weight:700" id="p2Score">0</div>
           </div>
         </div>
-
+        <!-- Instructions footer -->
         <footer class="small">
           Click a column indicator (top) to drop a token. Connect 4 in any direction to win.
         </footer>
+
         <hr class="divider">
         <!-- Here thewe is the gamemodes section -->
         <div class="gamemode-section">
           <h3>Select GameMode</h3>
 
+          <!-- PVP mode: classic two-player -->
           <label class="gamemode-option">
             <input type="radio" name="gamemode" value="pvp" checked>
             <span>PVP (Player vs Player)</span>
           </label>
 
-          
+          <!-- PvAI mode: play against "smart" AI -->
           <label class="gamemode-option">
             <input type="radio" name="gamemode" value="pvai">
             <span>PvAI (Best Move AI)</span>
           </label>
 
+          <!-- Random Chaos mode: blockers appear after each turn -->
           <label class="gamemode-option">
             <input type="radio" name="gamemode" value="random">
             <span>Random Chaos Mode</span>
@@ -90,24 +95,27 @@
       </div>
     </div>
 
+    <!-- Right panel: game board and controls -->
     <div class="panel board-wrap">
       <div class="top-controls">
+        <!-- Game status message -->
         <div class="message" id="message">Waiting to start...</div>
         <div>
+          <!-- Undo button to take back last move -->
           <button id="undoBtn" class="undo-btn">Undo last</button>
         </div>
       </div>
-
+      <!-- Main game board gets filled by JavaScript functions  -->
       <div class="board" id="boardArea" aria-label="Connect Four board"></div>
     </div>
   </div>
 
   <!-- Load scripts -->
-  <script src="js/utils.js"></script>
-  <script src="js/ui.js"></script>
-  <script src="js/board.js"></script>
-  <script src="js/main.js"></script>
-  <script src="js/ai.js"></script>
-  <script src ="js/random.js"></script>
+  <script src="js/utils.js"></script> <!-- Helper functions -->
+  <script src="js/ui.js"></script> <!-- UI rendering -->
+  <script src="js/board.js"></script> <!-- Game logic & state -->
+  <script src="js/main.js"></script> <!-- Main controller -->
+  <script src="js/ai.js"></script> <!-- AI opponent -->
+  <script src ="js/random.js"></script> <!-- Random Chaos mode -->
 </body>
 </html>
