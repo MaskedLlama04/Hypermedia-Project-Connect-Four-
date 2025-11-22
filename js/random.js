@@ -1,25 +1,27 @@
 // ===============================
 // Random Mode Logic 
+// This mode adds unpredictable blockers after each player's move
 // ===============================
+//This file was made by Pol Cañadas and Bernat Pujolriu
 
 // Called by main.js after each player turn
 function randomModeStep() {
-    if (gameOver) return;
+    if (gameOver) return; //no need to do anything if its over
 
-    // This will collect columns that still have empty space
+    // Collect columns that still have empty space
     const availableCols = [];
     for (let c = 0; c < COLS; c++) {
         if (board[0][c] === 0) {
             availableCols.push(c);
         }
     }
-
+    //the board is full, we cant dont do anything
     if (availableCols.length === 0) return;
 
     // Pick random valid column
     const col = availableCols[Math.floor(Math.random() * availableCols.length)];
 
-    // Find lowest empty row in that column
+    // Find lowest empty row in that column (like gravity)
     let row = -1;
     for (let r = ROWS - 1; r >= 0; r--) {
         if (board[r][col] === 0) {
@@ -28,7 +30,7 @@ function randomModeStep() {
         }
     }
 
-    if (row === -1) return;
+    if (row === -1) return; //this should be impossible but we dont believe in ourselves enough
 
     // Place blocker (value 3)
     board[row][col] = 3;
