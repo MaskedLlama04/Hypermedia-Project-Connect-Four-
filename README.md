@@ -1,7 +1,7 @@
 # Hypermedia-Project-Connect-Four-
 ##  Overview
 
-This project is a complete implementation of the classic **Connect Four** game using only **HTML, CSS, and JavaScript**, organized into multiple files for clarity and maintainability. The goal of the assignment was to create a fully functioning, visually appealing, responsive web application without using external libraries or frameworks.
+This project is a complete implementation of the classic **Connect Four** game using only **HTML, CSS, and JavaScript**, organized into multiple files for clarity and maintainability. The goal of the assignment was to create a fully functioning, visually appealing, responsive web application without using external libraries or frameworks. This project was made by Pol Cañadas & Bernat Pujolriu.
 
 The application allows two players to compete locally on the same device, dropping tokens into a 7×6 grid until one achieves four connected discs in any direction (horizontal, vertical, or diagonal). The user interface is fully custom styled, responsive across devices, and includes interactive sound effects. We even would like to mention that we created a GitHub repository to work together: https://github.com/MaskedLlama04/Hypermedia-Project-Connect-Four-
 
@@ -36,13 +36,13 @@ The entire project has been modularized so each component has a clear responsibi
 
 ### ✔️ Custom Action Buttons
 
-The “Start / Apply”, “New Round”, and “Reset Scores” buttons were redesigned with modern gradient colors, hover animations, and improved spacing. The **Start Round** button is placed at the center and styled as the main call-to-action.
+The “Start / Apply”, “New Round”, and “Reset Scores” buttons were redesigned with gradient colors, hover animations, and improved spacing. The **Start Round** button is placed at the center and styled as the main call-to-action.
 
-**IMPORTANT NOTE**: When starting/wanting to play, we always recommend to use the **"Start/Apply"** button. This will confirm both player's name, their selected colour, and most importantly the selected gamemode. By that we mean that if you are mid-game, and want to change the first player's colour to black, and also change from the player vs player mode to the player vs AI, you need to select firstly the new colour, then the gamemode below and finally press this button. A new round will start (keeping the old scores of course) with an empty board and the chosen changes.
+**IMPORTANT NOTE**: When starting/wanting to play, we always recommend to use the **"Start/Apply"** button. This will confirm both player's name, their selected colour, and most importantly the selected gamemode. By that we mean that if you are mid-game, and want to change the first player's colour to black, and also change from the player vs player mode to the player vs AI, you need to select firstly the new colour, then the gamemode below and finally press this button. A new round will start (keeping the old scores of course) with an empty board and the chosen changes. In other words, any kind of change must be done with this button.
 
 **SECOND IMPORTANT NOTE**: Also we must tell that **"New Round"** button keeps all the current settings and only makes the board empty and ready to play again. And the **"Reset Scores"** basically does the same thing, but putting both scores to 0.
 
-**LAST IMPORTANT NOTE WE PROMISE**: For playing, the users will have to click on the "▼" icon on top of each one of the columns. The piece will go to the lowest available position from that chosen column.
+**LAST IMPORTANT NOTE WE PROMISE**: For playing, the users will have to click on the "▼" icon on top of each one of the columns. The piece will go to the lowest available position from that chosen column. We also would love to mention that if the board is full, an alert is going to appear telling the user to start a new round.
 
 ### ✔️ Enhanced Undo Button
 
@@ -156,11 +156,11 @@ Scores for Pol (Player 1) and Bernat (Player 2) update automatically after each 
 
 The default player names have been updated to:
 
-* Player 1 → **Insert the first name**
-* Player 2 → **Insert the second name**
+* Player 1 → **Pol**
+* Player 2 → **Bernat**
 
 Users can modify names and colors using inputs in the left panel.
-The "Start / Apply" button applies changes instantly and resets the board.
+The "Start / Apply" button applies changes instantly and resets the board (it also makes switches between gamemodes).
 
 ---
 
@@ -188,7 +188,7 @@ This Connect Four project showcases:
 * Interactive sound effects
 * Expandable game architecture
 
-The game is fully functional, visually polished, and ready to play.
+The game is fully functional, visually polished, and ready to play. At the end, given we both work in AI related jobs,  we also tried to make it a little better with the AI gamemode, and the third randomized mode was really fun to try and prepare it too. At the end, we really had some fun with this project.
 
 ---
 
